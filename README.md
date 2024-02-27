@@ -1,44 +1,49 @@
-# TLDR App
+# TLDR
+
+## TL;DR
+
+**TLDR** is an app designed to scrape and preprocess web docs for LLM training, featuring:
+- Easy setup and usage.
+- Compatibility with both static and dynamic web content.
+- Optimized output in JSON format.
 
 ## Overview
 
-TLDR is a Python application for scraping product documentation or guides from specified URLs, extracting relevant information, and saving it in a JSON format optimized for training GPT-4 models. It utilizes BeautifulSoup for static content and Playwright as a fallback for dynamic content that requires JavaScript execution.
+TLDR is a Python application specifically geared for scraping product documentation or guides from specified URLs, extracting relevant information, and saving it in a JSON format optimized for training GPT-4 models. It utilizes [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) for static content and [Playwright](https://playwright.dev/) as a fallback for dynamic content that requires JavaScript execution.
 
 ## Installation
 
-### Using `setup.py` (Recommended for most users)
+### Prerequisites
+Python 3.8 or higher.
 
-This method installs TLDR and automatically sets up Playwright, including necessary browser binaries.
+### General Installation (Recommended)
+
+This method installs **TLDR** and automatically sets up Playwright, including necessary browser binaries.
 
 1. Clone this repository.
-2. Navigate to the root directory of the cloned repository.
-3. Create a virtual environment (optional but recommended):
-   - `python3 -m venv venv`
-4. Activate the virtual environment:
-   - On Windows: `venv\Scripts\activate`
-   - On Unix or MacOS: `source venv/bin/activate`
-5. Install the package, which includes automatic Playwright setup:
-   - `pip install .`
+2. Navigate to the root directory of the cloned repo.
+3. Create a virtual environment *(optional but recommended)*:
+   - **Windows**: `python -m venv venv` then `venv\Scripts\activate`
+   - **Unix/MacOS**: `python3 -m venv venv` then `source venv/bin/activate`
+4. Install TLDR with dependencies:
+   - Run `pip install .`
+   - The post-installation script attempts to install Playwright browsers automatically.
 
 ### For Development
 
-If you're setting up TLDR for development purposes, follow these steps:
+If you're setting up **TLDR** for development purposes or need manual control over the installation process, follow these steps:
 
-1. Clone this repository.
-2. Navigate to the root directory of the cloned repository.
-3. Create a virtual environment:
-   - `python3 -m venv venv`
-4. Activate the virtual environment:
-   - On Windows: `venv\Scripts\activate`
-   - On Unix or MacOS: `source venv/bin/activate`
-5. Install the development requirements:
+1. Follow steps 1 to 3 as outlined in General Installation.
+2. Install development dependencies:
    - `pip install -r requirements.txt`
-6. Manually install Playwright browsers:
+3. Manually install Playwright:
    - `playwright install`
+
+**Note**: The manual installation process is recommended if you encounter issues with the automatic Playwright setup or if you are contributing to TLDR project development.
 
 ## Usage
 
-After installation, you can run the application directly from the command line anywhere in your system by typing:
+After installation, you can run **TLDR** directly from the command line anywhere in your system by typing:
 `TLDR`
 
 Follow the on-screen prompts to enter the URL of the product documentation or guide you wish to scrape. The output will be saved in the `output` directory within the project folder, using a filename based on the domain and the time of scraping.
@@ -52,7 +57,7 @@ Ensure you have an active internet connection and necessary permissions for inst
 
 Should you encounter issues where TLDR fails to scrape content as expected, particularly with websites heavily reliant on JavaScript, the `debug_scraper` tool can be utilized for diagnostic purposes.
 
-### Using `debug_scraper`
+## Using `debug_scraper`
 
 The `debug_scraper` tool is designed to emulate more closely human interactions with a webpage and can provide additional insights into why scraping might be failing. It captures screenshots and the HTML content of the page at the time of scraping, which can be helpful for identifying issues like JavaScript-rendered content not loading as expected.
 
@@ -74,3 +79,7 @@ After running `debug_scraper`, check the `debug` folder for the screenshot (`_sc
 If the content you're expecting is missing or if the page shows error messages, it might indicate issues such as the need for specific headers, cookies, or dealing with CAPTCHAs that require more advanced handling within the `scraper.py` or necessitate manual intervention.
 
 Hit me up for further assistance or if the problem persists.
+
+## License
+
+TLDR is released under the MIT License. Check the LICENSE file in the project root for more info.
