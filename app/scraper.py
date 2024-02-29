@@ -20,7 +20,7 @@ def scrape_url(url):
 def scrape_with_playwright(url):
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)  # Change to False if you want to see the browser
+            browser = p.chromium.launch(headless=True)  # Change to False if debugging
             
             # Randomize User-Agent
             user_agents = [
@@ -37,7 +37,6 @@ def scrape_with_playwright(url):
             
             page.goto(url, wait_until='networkidle')
             
-            # Optional: Introduce another random delay here before scraping content
             time.sleep(random.uniform(1, 3))
             
             content = page.content()
@@ -66,6 +65,17 @@ def save_to_json(data, filename):
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2)
 
+def clean_content(content):
+    seen = set()
+    cleaned_content = []
+    for item in content:
+        # Create a unique identifier for each item based on its tag and text
+        identifier = f"{item['tag']}_{item['text']}"
+        if item['text'] and identifier not in seen:
+            seen.add(identifier)
+            cleaned_content.append(item)
+    return cleaned_content
+
 def main():
     url = input("Enter the URL of the product documentation or guide: ")
     soup, error = scrape_url(url)
@@ -78,8 +88,11 @@ def main():
             return
     
     title = soup.title.string if soup.title else 'No Title Found'
-    tags = ['h1', 'h2', 'h3', 'p', 'pre', 'code']
-    content = [{'tag': el.name, 'text': el.get_text(strip=True)} for el in soup.find_all(tags)]
+    tags = ['h1', 'h2', 'h3', 'p', 'pre', 'code', 'span', 'div', 'section']
+    raw_content = [{'tag': el.name, 'text': el.get_text(strip=True)} for el in soup.find_all(tags)]
+    
+    # Clean the content before saving
+    content = clean_content(raw_content)
     
     filename = get_filename(url, title)
     save_to_json(content, filename)

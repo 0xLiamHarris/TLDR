@@ -1,15 +1,16 @@
 # TLDR
 
-## TL;DR
-
-**TLDR** is an app designed to scrape and preprocess web docs for LLM training, featuring:
-- Easy setup and usage.
-- Compatibility with both static and dynamic web content.
-- Optimized output in JSON format.
-
 ## Overview
 
-TLDR is a Python application specifically geared for scraping product documentation or guides from specified URLs, extracting relevant information, and saving it in a JSON format optimized for training GPT-4 models. It utilizes [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) for static content and [Playwright](https://playwright.dev/) as a fallback for dynamic content that requires JavaScript execution.
+TLDR is a Python app specifically geared for scraping product documentation or guides from specified URLs, extracting relevant information, and saving it to LLM-optimized JSON for training models. It utilizes [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) for static content and [Playwright](https://playwright.dev/) as a fallback for dynamic content that requires JavaScript execution.
+
+TL;DR: app scrapey; GPT thinky
+
+## On Deck
+- Better DOM preprocessing
+- LLM handles data transformation
+- Making it cool and good
+- Mapping & aggregating data would also be cool
 
 ## Installation
 
@@ -18,7 +19,7 @@ Python 3.8 or higher.
 
 ### General Installation (Recommended)
 
-This method installs **TLDR** and automatically sets up Playwright, including necessary browser binaries.
+This method installs **TLDR** and all associated dependencies.
 
 1. Clone this repository.
 2. Navigate to the root directory of the cloned repo.
@@ -31,15 +32,13 @@ This method installs **TLDR** and automatically sets up Playwright, including ne
 
 ### For Development
 
-If you're setting up **TLDR** for development purposes or need manual control over the installation process, follow these steps:
+If you're setting up **TLDR** for dev/debugging or need manual control over the installation process, follow these steps:
 
 1. Follow steps 1 to 3 as outlined in General Installation.
 2. Install development dependencies:
    - `pip install -r requirements.txt`
 3. Manually install Playwright:
    - `playwright install`
-
-**Note**: The manual installation process is recommended if you encounter issues with the automatic Playwright setup or if you are contributing to TLDR project development.
 
 ## Usage
 
@@ -53,13 +52,13 @@ Follow the on-screen prompts to enter the URL of the product documentation or gu
 In case you encounter any issues during the installation or running of TLDR, especially related to Playwright, consider manually running the Playwright installation command:
 - `playwright install`
 
-Ensure you have an active internet connection and necessary permissions for installation.
-
 Should you encounter issues where TLDR fails to scrape content as expected, particularly with websites heavily reliant on JavaScript, the `debug_scraper` tool can be utilized for diagnostic purposes.
 
 ## Using `debug_scraper`
 
-The `debug_scraper` tool is designed to emulate more closely human interactions with a webpage and can provide additional insights into why scraping might be failing. It captures screenshots and the HTML content of the page at the time of scraping, which can be helpful for identifying issues like JavaScript-rendered content not loading as expected.
+The `debug_scraper` tool is designed to emulate more closely human interactions with a webpage and can provide additional insights into why scraping might be failing. It captures screenshots and the HTML content of the page to `~/output` at the time of scraping.
+
+This can be helpful for identifying issues like JavaScript-rendered content not loading as expected.
 
 To use `debug_scraper`, follow these steps:
 
